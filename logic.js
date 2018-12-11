@@ -9,48 +9,27 @@ let field = [
     ['', '', '']
 ];
 
-let winField = [
-    [
-        [players[activePlayer], players[activePlayer], players[activePlayer]],
-        ['', '', ''],
-        ['', '', '']
-    ],
-    [
-        ['', '', ''],
-        [players[activePlayer], players[activePlayer], players[activePlayer]],
-        ['', '', '']
-    ],
-    [
-        ['', '', ''],
-        ['', '', ''],
-        [players[activePlayer], players[activePlayer], players[activePlayer]]
-    ],
-    [
-        [players[activePlayer], '', ''],
-        [players[activePlayer], '', ''],
-        [players[activePlayer], '', '']
-    ],
-    [
-        ['', players[activePlayer], ''],
-        ['', players[activePlayer], ''],
-        ['', players[activePlayer], '']
-    ],
-    [
-        ['', '', players[activePlayer]],
-        ['', '', players[activePlayer]],
-        ['', '', players[activePlayer]]
-    ],
-    [
-        [players[activePlayer], '', ''],
-        ['', players[activePlayer], ''],
-        ['', '', players[activePlayer]]
-    ],
-    [
-        ['', '', players[activePlayer]],
-        ['', players[activePlayer], ''],
-        [players[activePlayer], '', '']
-    ],
-];
+function checkWin() {
+    /*let row = field.length; // попытка привязать к сетке
+    let column = field[0].length;*/
+
+    let shot = players[activePlayer];
+    for (let i = 0; i <= 2; i++) {
+        for (let j = 0; j <= 2; j++) {
+
+
+            if (field[i][0] == shot && field[i][1] == shot && field[i][2] == shot) {
+                showWinner(activePlayer);
+            } else if (field[0][j] == shot && field[1][j] == shot && field[2][j] == shot) {
+                showWinner(activePlayer);
+            } else if (field[0][0] == shot && field[1][1] == shot && field[2][2] == shot) {
+                showWinner(activePlayer);
+            } else if (field[0][2] == shot && field[1][1] == shot && field[2][0] == shot) {
+                showWinner(activePlayer);
+            }
+        }
+    }
+}
 
 function startGame() {
 
@@ -62,7 +41,7 @@ function startGame() {
 
     renderBoard(field);
     counter = 0;
-}
+};
 
 function click(row, col) {
 
@@ -74,15 +53,8 @@ function click(row, col) {
 
     field[row][col] = players[activePlayer];
     renderBoard(field);
+    checkWin();
 
-    for (let i = 0; i < field.length; i++) {
-        // console.log(field[i])
-        // console.log(winField[i][1])
+    counter++;
 
-        if (field[i] == winField[i][0] || field[i] == winField[i][1] || field[i] == winField[i][2]) {
-            showWinner(activePlayer);
-        }
-
-        counter++;
-    }
 }
